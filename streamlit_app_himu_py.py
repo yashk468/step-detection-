@@ -88,15 +88,19 @@ def main():
         # User uploads file
         uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 
-        # User sets weight
+        # ✅ CORRECT ORDER
         user_weight = st.number_input(
             "Your Weight (kg)",
             min_value=30.0,
             max_value=200.0,
-            value=weight_kg,
+            value=weight_kg, 
             step=1.0
         )
-        global weight_kg
+        
+        # 1. Declare it as global first
+        global weight_kg 
+        
+        # 2. Then, perform the assignment
         weight_kg = user_weight
 
     if uploaded_file is not None and model is not None:
