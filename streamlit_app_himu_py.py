@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import joblib # Fixed typo: changed jobliba to joblib
+import joblib 
 from scipy.signal import find_peaks # Included even if not currently used, for future expansion
 
 
@@ -11,7 +11,8 @@ step_size = 10
 # Sampling rate was 150ms (0.15s). Convert to Hz (samples per second)
 sampling_rate = 1 / 0.15
 step_length_m = 0.70
-weight_kg = 75 # Default weight
+# FIX: Change initial value to float (75 -> 75.0) to resolve StreamlitMixedNumericTypesError
+weight_kg = 75.0 
 METs = {
     'flat': 3.5,     # Moderate walking
     'incline': 6.0,  # Brisk uphill walking
@@ -66,17 +67,17 @@ def main():
     st.markdown("Upload your raw IMU data (accelerometer and gyroscope) to classify the activity and estimate caloric burn.")
     st.warning("⚠️ **Note:** The model expects a specific CSV format: headers are skipped, and columns must contain AccX, AccY, AccZ, GyroX, GyroY, GyroZ data in that order.")
 
-    # FIX: Declare global variable at the highest point it's needed in main()
+    # Declare global variable at the highest point it's needed in main()
     global weight_kg 
     
     # --- User Inputs ---
     with st.sidebar:
         st.header("Parameters")
         
-        # User uploads file (Corrected indentation)
+        # User uploads file
         uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 
-        # User sets weight (Corrected usage of global weight_kg)
+        # User sets weight
         user_weight = st.number_input(
             "Your Weight (kg)",
             min_value=30.0,
@@ -170,5 +171,4 @@ def main():
         st.info("Upload a CSV file to begin analysis.")
 
 if __name__ == '__main__':
-    # This is the correct way to run the main function in a standard Python environment.
     main()
