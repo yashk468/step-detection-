@@ -84,7 +84,8 @@ def main():
     # --- User Inputs ---
     with st.sidebar:
         st.header("Parameters")
-
+            # FIX: Declare global first!
+    global weight_kg  # <--- MOVE THIS LIN
         # User uploads file
         uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 
