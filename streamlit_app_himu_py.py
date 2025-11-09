@@ -24,8 +24,13 @@ try:
     # Load the pre-trained RandomForestClassifier model
     model = joblib.load('incline_step_classifier.pkl')
 except FileNotFoundError:
-    # Use Streamlit's error function for the deployed app
-    st.error("Error: Model file 'incline_step_classifier.pkl' not found. Please ensure it is in the same directory.")
+    # --- ENHANCED ERROR MESSAGE FOR DEPLOYMENT ISSUE ---
+    st.error("❌ **MODEL NOT FOUND:** The file 'incline_step_classifier.pkl' is missing.")
+    st.markdown("""
+        **Action Required:** Please ensure this file is uploaded to the root directory
+        of your **GitHub repository** and that the changes have been committed and pushed.
+        The Streamlit app cannot run without the model.
+    """)
     model = None
 
 
@@ -166,6 +171,7 @@ def main():
             st.error(f"An error occurred during processing: {e}")
             st.exception(e)
     elif model is None:
+        # If the model failed to load, st.error has already run, so just display a message
         st.markdown("Please fix the model loading error to continue.")
     else:
         st.info("Upload a CSV file to begin analysis.")
