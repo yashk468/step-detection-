@@ -8,7 +8,7 @@ Original file is located at
 """
 
 # Install Streamlit and joblib (and other dependencies) if running in a notebook environment like Colab
-!pip install streamlit pandas numpy joblib scipy
+pip install streamlit pandas numpy joblib scipy
 
 import streamlit as st
 import pandas as pd
